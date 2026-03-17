@@ -1,26 +1,22 @@
 import { useEffect, useState } from "react";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { FaLaptopCode } from "react-icons/fa";
+import "./navbar.css";
 
 export default function AppNavbar() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const navigate = useNavigate();
+  const [scrolled, setScrolled] = useState(false);
 
-  /* 🌙 Dark Mode State */
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("theme") === "dark"
-  );
-
-  /* 🌗 Apply Dark Mode */
+  /* Scroll Effect for Glassmorphism */
   useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.body.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [darkMode]);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
@@ -31,44 +27,48 @@ export default function AppNavbar() {
   };
 
   return (
-    <Navbar expand="lg" sticky="top" className="custom-navbar">
+    <Navbar 
+      expand="lg" 
+      fixed="top" 
+      className={`premium-navbar ${scrolled ? "scrolled glass-nav" : ""}`}
+    >
       <Container>
-        {/* Logo */}
-        <Navbar.Brand as={Link} to="/" className="brand">
-          Task Manager
+        {/* Premium Logo */}
+        <Navbar.Brand as={Link} to="/" className="brand-logo">
+          <div className="logo-icon-wrapper">
+            <FaLaptopCode className="logo-icon-svg" />
+          </div>
+          <span className="logo-text">Task<span className="text-gradient">Flow</span></span>
         </Navbar.Brand>
 
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav className="me-4 nav-links">
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="custom-toggler" />
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+          <Nav className="me-4 nav-links-premium">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/about">About</Nav.Link>
             <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-
             {isLoggedIn && (
               <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
             )}
           </Nav>
 
-          {/* 🌙 Dark Mode Toggle */}
-          <Button
-            variant="outline-secondary"
-            className="me-3 theme-btn"
-            onClick={() => setDarkMode(!darkMode)}
-          >
-            {darkMode ? "☀ Light" : "🌙 Dark"}
-          </Button>
-
-          {/* Auth Buttons */}
-          {!isLoggedIn ? (
-            <Button className="signup-btn" onClick={() => navigate("/auth")}>
-              Sign Up
-            </Button>
-          ) : (
-            <Button className="logout-btn" onClick={handleLogout}>
-              Logout
-            </Button>
-          )}
+          {/* Auth Actions */}
+          <div className="nav-actions-premium">
+            {!isLoggedIn ? (
+              <>
+                <Button variant="link" className="btn-login-premium" onClick={() => navigate("/auth")}>
+                  Log in
+                </Button>
+                <Button className="btn-premium btn-signup-premium" onClick={() => navigate("/auth")}>
+                  Get Started
+                </Button>
+              </>
+            ) : (
+              <Button className="btn-outline-premium" onClick={handleLogout}>
+                Logout
+              </Button>
+            )}
+          </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -18,41 +17,17 @@ const Auth = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (isLogin) {
+      // LOGIN
       if (!formData.email || !formData.password) {
         alert("Email and Password required");
         return;
       }
-
-      // Admin Login
-      if (
-        formData.email === "admin@gmail.com" &&
-        formData.password === "123456"
-      ) {
-        localStorage.setItem("role", "admin");
-        localStorage.setItem("isLoggedIn", "true");
-        navigate("/admin-dashboard");
-        return;
-      }
-
-      // Normal User Login API Call
-      try {
-        const res = await axios.post("http://localhost:5000/api/auth/login", {
-          email: formData.email,
-          password: formData.password,
-        });
-        
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("role", res.data.role || "user");
-        localStorage.setItem("user", JSON.stringify(res.data));
-        localStorage.setItem("isLoggedIn", "true");
-        navigate("/dashboard");
-      } catch (error) {
-        alert(error.response?.data?.message || "Login failed");
-      }
+      localStorage.setItem("isLoggedIn", "true");
+      navigate("/dashboard");
     } else {
       // REGISTER
       if (
@@ -76,20 +51,8 @@ const Auth = () => {
         return;
       }
 
-      // Register User API Call
-      try {
-        await axios.post("http://localhost:5000/api/auth/register", {
-          name: formData.name,
-          email: formData.email,
-          mobile: formData.mobile,
-          password: formData.password,
-        });
-        
-        alert("Registration Successful! Please Login.");
-        setIsLogin(true);
-      } catch (error) {
-        alert(error.response?.data?.message || "Registration failed");
-      }
+      alert("Registration Successful! Please Login.");
+      setIsLogin(true);
     }
   };
 

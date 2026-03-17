@@ -1,7 +1,5 @@
 import "./WhyChoose.css";
 
-
-
 const WhyChoose = () => {
   return (
     <section className="why-section">
@@ -9,24 +7,29 @@ const WhyChoose = () => {
 
         {/* LEFT TEXT */}
         <div className="why-text">
-          <h2>Why Choose Our App</h2>
+          <h2>
+            Engineered for <br/>
+            <span className="text-gradient">Peak Performance</span>
+          </h2>
           <p className="subtitle">
-            Manage your tasks smarter with a clean interface,
-            clear deadlines and powerful productivity tools.
+            We've stripped away the clutter to give you a tool that acts as an extension of your mind. Fast, fluid, and beautifully designed.
           </p>
 
           <ul className="why-list">
-            <li>Visual task scheduling</li>
-            <li>Priority & deadline tracking</li>
-            <li>Simple team collaboration</li>
-            <li>Fast, secure and easy to use</li>
+            <li>Zero friction task capturing</li>
+            <li>Intelligent priority algorithms</li>
+            <li>Real-time team synchronization</li>
+            <li>Bank-grade data encryption</li>
           </ul>
         </div>
 
         {/* RIGHT IMAGE */}
         <div className="why-image">
-         <img src="/images/calendar-preview.png" alt="Why choose preview" />
-
+          <img 
+            src="/calendar_mockup_1773723200072.png" 
+            alt="App Interface Mockup"
+            className="image-glow"
+          />
         </div>
 
       </div>

@@ -1,52 +1,57 @@
-import React from "react";
-import { FaCheckCircle, FaChartPie, FaTasks } from "react-icons/fa";
-import "./home.css";
+import { FaUserShield, FaTasks, FaChartLine, FaTachometerAlt } from "react-icons/fa";
 
-const FeatureSection = () => {
+export default function Features() {
   return (
-    <section className="feature-section">
-      <div className="feature-container">
-        
-        <h2 className="feature-title">
-          Powerful Features Designed for Productivity
-        </h2>
-        <p className="feature-subtitle">
-          Manage tasks smarter with real-time tracking and intelligent organization.
-        </p>
+    <section className="features">
+      <h2 className="features-title">Key Features</h2>
 
-        <div className="feature-grid">
-
-          {/* Card 1 */}
-          <div className="feature-card">
-            <div className="icon green">
-              <FaTasks />
-            </div>
-            <h3>Smart Task Management</h3>
-            <p>Organize, prioritize, and track tasks effortlessly.</p>
+      <div className="feature-cards">
+        {/* Card 1 */}
+        <div className="feature-card">
+          <div className="icon-wrapper">
+            <FaUserShield size={40} color="#4CAF50" />
           </div>
+          <h3>Secure Login & Signup</h3>
+          <p>
+            Users can register and login securely. Each user can access only
+            their own tasks.
+          </p>
+        </div>
 
-          {/* Card 2 */}
-          <div className="feature-card">
-            <div className="icon blue">
-              <FaCheckCircle />
-            </div>
-            <h3>Real-Time Admin Reports</h3>
-            <p>Admins can monitor task updates and performance instantly.</p>
+        {/* Card 2 */}
+        <div className="feature-card">
+          <div className="icon-wrapper">
+            <FaTasks size={40} color="#FF9800" />
           </div>
+          <h3>Manage Tasks Easily</h3>
+          <p>
+            Create, edit, and delete tasks with ease to organize your daily work.
+          </p>
+        </div>
 
-          {/* Card 3 */}
-          <div className="feature-card">
-            <div className="icon purple">
-              <FaChartPie />
-            </div>
-            <h3>Visual Progress Tracking</h3>
-            <p>Track completed and pending tasks with visual insights.</p>
+        {/* Card 3 */}
+        <div className="feature-card">
+          <div className="icon-wrapper">
+            <FaChartLine size={40} color="#2196F3" />
           </div>
+          <h3>Track Task Progress</h3>
+          <p>
+            Monitor pending and completed tasks to stay productive and focused.
+          </p>
+        </div>
 
+        {/* Card 4 */}
+        <div className="feature-card">
+          <div className="icon-wrapper">
+            <FaTachometerAlt size={40} color="#9C27B0" />
+          </div>
+          <h3>Personalized Dashboard</h3>
+          <p>
+            Each user gets a personal dashboard with task summary and quick
+            actions.
+          </p>
         </div>
       </div>
     </section>
   );
-};
-
-export default FeatureSection;
+}

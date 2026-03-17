@@ -1,85 +1,41 @@
-import React from "react";
-import "./Hero.css";
-import { FaSearch, FaCheckCircle } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-const Hero = () => {
+import img1 from "../assets/images/hero1.png";
+import img2 from "../assets/images/hero2.png";
+import img3 from "../assets/images/hero3.png";
+
+export default function Hero() {
+  const images = [img1, img2, img3];
+  const [current, setCurrent] = useState(0);
+
+  // Auto slider
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 4000); // 4 sec
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="hero">
-      <div className="hero-container">
+    <section
+      className="hero-banner"
+      style={{ backgroundImage: `url(${images[current]})` }}
+    >
+      <div className="hero-overlay"></div>
 
-        {/* LEFT SIDE */}
-        <div className="hero-left">
-          <h1>
-            Organize Your Tasks.<br />
-            Boost Your Productivity.
-          </h1>
+      <div className="hero-inner">
+        <h1>Manage Your Tasks Easily</h1>
+        <p>
+          A secure task manager app with user authentication to organize
+          your daily work efficiently.
+        </p>
 
-          <p>
-            Manage your tasks efficiently, track progress, and
-            collaborate with your team with ease.
-          </p>
-
-          <div className="hero-search">
-            <FaSearch />
-            <input type="text" placeholder="Search your tasks..." />
-          </div>
-
-          <button className="hero-btn">Get Started</button>
-
-          <div className="hero-stats">
-            <span>10K+ Users</span>
-            <span>50K+ Tasks Completed</span>
-          </div>
+        <div className="hero-buttons">
+         
         </div>
-
-        {/* RIGHT SIDE FLOATING UI */}
-        <div className="hero-right">
-
-          {/* Small Progress Card */}
-          <div className="mini-card progress-mini">
-            <p>Progress</p>
-            <strong>3/5</strong>
-          </div>
-
-          {/* Task List Card */}
-          <div className="task-card">
-            <h3>Tasks</h3>
-            <ul>
-              <li>Design new homepage</li>
-              <li>Fix bug in login form</li>
-              <li>Update profile page</li>
-            </ul>
-          </div>
-
-          {/* Completed Card */}
-          <div className="mini-card completed-mini">
-            <FaCheckCircle className="check-icon" />
-            <div>
-              <strong>24</strong>
-              <p>Completed Tasks</p>
-            </div>
-          </div>
-
-          {/* Big Circle */}
-          <div className="circle-card">
-            <div className="circle">
-              <span>65%</span>
-            </div>
-          </div>
-
-          {/* Chart Card */}
-          <div className="chart-card">
-            <div className="bar"></div>
-            <div className="bar small"></div>
-            <div className="bar"></div>
-            <div className="bar big"></div>
-          </div>
-
-        </div>
-
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

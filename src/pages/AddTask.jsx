@@ -1,110 +1,103 @@
 import React, { useState } from "react";
-import "./AddTask.css";
 
 export default function AddTask() {
+  const [taskName, setTaskName] = useState("");
+  const [status, setStatus] = useState("Pending");
   const [tasks, setTasks] = useState([]);
 
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    priority: "Medium",
-    status: "Pending",
-    dueDate: "",
-    assignTo: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   const handleAddTask = () => {
-    if (formData.title.trim() === "") {
-      alert("Task title is required");
+    if (taskName.trim() === "") {
+      alert("Please enter task name");
       return;
     }
 
-    setTasks([...tasks, { id: Date.now(), ...formData }]);
+    const newTask = {
+      id: Date.now(),
+      name: taskName,
+      status: status,
+    };
 
-    setFormData({
-      title: "",
-      description: "",
-      priority: "Medium",
-      status: "Pending",
-      dueDate: "",
-      assignTo: "",
-    });
+    setTasks([...tasks, newTask]);
+    setTaskName("");
+    setStatus("Pending");
   };
 
   return (
-    <div className="addtask-container">
-      {/* FORM */}
-      <div className="task-card">
-        <h2>Create New Task</h2>
+    <div style={styles.container}>
+      <div style={styles.card}>
+        <h2>Add a New Task</h2>
 
         <input
           type="text"
-          name="title"
-          placeholder="Task Title"
-          value={formData.title}
-          onChange={handleChange}
+          placeholder="Task Name"
+          value={taskName}
+          onChange={(e) => setTaskName(e.target.value)}
+          style={styles.input}
         />
 
-        <textarea
-          name="description"
-          placeholder="Task Description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-
-        <select name="priority" value={formData.priority} onChange={handleChange}>
-          <option>Low</option>
-          <option>Medium</option>
-          <option>High</option>
+        <select
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          style={styles.input}
+        >
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
         </select>
 
-        <select name="status" value={formData.status} onChange={handleChange}>
-          <option>Pending</option>
-          <option>In Progress</option>
-          <option>Completed</option>
-        </select>
-
-        <input
-          type="date"
-          name="dueDate"
-          value={formData.dueDate}
-          onChange={handleChange}
-        />
-
-        <input
-          type="text"
-          name="assignTo"
-          placeholder="Assign To (Employee Name)"
-          value={formData.assignTo}
-          onChange={handleChange}
-        />
-
-        <button onClick={handleAddTask}>Create Task</button>
+        <button onClick={handleAddTask} style={styles.button}>
+          Add Task
+        </button>
       </div>
 
-      {/* TASK LIST */}
-      <div className="task-list">
-        <h3>Created Tasks</h3>
+      <div style={styles.list}>
+        <h3>Task List</h3>
 
         {tasks.length === 0 ? (
-          <p className="empty">No tasks created yet</p>
+          <p>No tasks added</p>
         ) : (
-          tasks.map((task) => (
-            <div className="task-item" key={task.id}>
-              <h4>{task.title}</h4>
-              <p>{task.description}</p>
-              <span>Priority: {task.priority}</span>
-              <span>Status: {task.status}</span>
-              <span>Due: {task.dueDate || "N/A"}</span>
-              <span>Assigned: {task.assignTo}</span>
-            </div>
-          ))
+          <ul>
+            {tasks.map((task) => (
+              <li key={task.id}>
+                {task.name} — <b>{task.status}</b>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </div>
   );
-} 
+}
+
+const styles = {
+  container: {
+    display: "flex",
+    gap: "40px",
+    padding: "40px",
+  },
+  card: {
+    width: "300px",
+    padding: "25px",
+    borderRadius: "12px",
+    background: "#fff",
+    boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
+  },
+  input: {
+    width: "100%",
+    padding: "10px",
+    marginBottom: "15px",
+    borderRadius: "6px",
+    border: "1px solid #ccc",
+  },
+  button: {
+    width: "100%",
+    padding: "10px",
+    background: "#1e90ff",
+    color: "#fff",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+  },
+  list: {
+    marginTop: "20px",
+  },
+};

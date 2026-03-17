@@ -9,7 +9,6 @@ const HowItWorks = () => {
       <div className="how-grid">
         <div className="how-card">
         <span className="step-icon">1</span>
-        <button onClick={() => navigate("/register")}></button>
           <h3>Create Account</h3>
           <p>Sign up in seconds and access your personalized task dashboard</p>
         </div>

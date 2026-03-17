@@ -1,34 +1,56 @@
 import React from "react";
-import "./DashboardPreview.css";
-import dashboardImg from "../assets/images/dashboard-preview.jpg";
+import "./dashboardpreview.css";
+import { FaCheck, FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-
-
-// Yaha tum apna dashboard screenshot ya UI image rakhna
-
+// Using a placeholder image styling to simulate a dashboard if image isn't available
+// In a real scenario, dashboardImg should be a high-quality mockup.
 const DashboardPreview = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="dashboard-preview">
       <div className="dashboard-container">
 
         <div className="dashboard-text">
-          <h2>Smart Dashboard for Better Productivity</h2>
+          <h2>Command your workflow from a <span className="text-highlight">single hub</span>.</h2>
           <p>
-            Monitor tasks, track progress, and manage your workflow efficiently
-            with our powerful and user-friendly dashboard.
+            Experience a command center designed for clarity. See everything from high-level project progress to individual task details without breaking your flow.
           </p>
 
-          <ul>
-            <li>✔ Real-time task updates</li>
-            <li>✔ Visual progress overview</li>
-            <li>✔ Admin & User insights</li>
+          <ul className="dashboard-features">
+            <li>
+              <div className="feature-check"><FaCheck size={14} /></div>
+              <span>Real-time task synchronization</span>
+            </li>
+            <li>
+              <div className="feature-check"><FaCheck size={14} /></div>
+              <span>Visual progress analytics</span>
+            </li>
+            <li>
+              <div className="feature-check"><FaCheck size={14} /></div>
+              <span>Seamless drag-and-drop boards</span>
+            </li>
           </ul>
 
-          <button className="preview-btn">Explore Dashboard</button>
+          <button className="btn-premium" onClick={() => navigate("/dashboard")}>
+            Explore Dashboard <FaArrowRight style={{marginLeft: '8px'}}/>
+          </button>
         </div>
 
         <div className="dashboard-image">
-          <img src={dashboardImg} alt="Dashboard Preview" />
+          {/* Abstract representation of a dashboard if image is missing, 
+              or replace with an actual high-res mock image */}
+          <img 
+              src="/dashboard_mockup_1773723181762.png" 
+              alt="Dashboard Mockup Image" 
+              style={{
+                width: '100%', 
+                height: 'auto', 
+                borderRadius: '12px',
+                border: '1px solid rgba(255,255,255,0.05)'
+              }} 
+            />
         </div>
 
       </div>
