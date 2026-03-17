@@ -1,6 +1,6 @@
 // Dashboard.jsx
 import React from "react";
-import "./dashboard.css";
+import "./Dashboard.css";
 
 const Dashboard = () => {
   const tasks = [
